@@ -1,23 +1,23 @@
 # EasyAzureIoT
 
-Librería Arduino para conectar ESP32 a **Azure IoT Hub** de forma simple.  
-Encapsula WiFi, NTP, SAS token auto-renovable y MQTT en una sola clase.
+Arduino library to connect an ESP32 to **Azure IoT Hub** with minimal setup.  
+Wraps WiFi, NTP, auto-renewable SAS token, and MQTT into a single class.
 
-## Instalación
+## Installation
 
-### Opción A — Arduino Library Manager (recomendado)
-Sketch → Include Library → Manage Libraries → buscar **EasyAzureIoT**
+### Option A — Arduino Library Manager (recommended)
+Sketch → Include Library → Manage Libraries → search **EasyAzureIoT**
 
-### Opción B — Manual
-Sketch → Include Library → Add .ZIP Library → seleccionar el zip descargado
+### Option B — Manual
+Sketch → Include Library → Add .ZIP Library → select the downloaded zip
 
-## Dependencias
-Instalar desde Manage Libraries:
+## Dependencies
+Install from Manage Libraries:
 - `azure-sdk-for-c` (Microsoft)
 - `PubSubClient` (Nick O'Leary)
 - `ArduinoJson` (Benoit Blanchon)
 
-## Uso básico
+## Basic Usage
 
 ```cpp
 #include <EasyAzureIoT.h>
@@ -25,7 +25,7 @@ Instalar desde Manage Libraries:
 EasyAzureIoT iot(
   "WIFI_SSID",
   "WIFI_PASSWORD",
-  "tu-hub.azure-devices.net",
+  "your-hub.azure-devices.net",
   "device_id",
   "SharedAccessKey="
 );
@@ -39,7 +39,7 @@ void loop() {
   iot.loop();
 
   iot.publish(Payload()
-    .add("estado",  "ON")
+    .add("status",  "ON")
     .add("bunches", 60)
     .add("temp",    36.5f)
   );
@@ -50,21 +50,21 @@ void loop() {
 
 ## Payload
 
-`device` y `ts` se agregan automáticamente — no hace falta incluirlos.
+`device` and `ts` are added automatically — no need to include them.
 
 ```cpp
 iot.publish(Payload()
-  .add("campo",   "texto")   // String
-  .add("numero",  42)        // int
+  .add("field",   "text")    // String
+  .add("number",  42)        // int
   .add("decimal", 3.14f)     // float
-  .add("activo",  true)      // bool
+  .add("active",  true)      // bool
 );
 ```
 
-## Configuración avanzada
+## Advanced Configuration
 
 ```cpp
-// Token personalizado (por defecto 24h, renueva a las 23h)
+// Custom token duration (default 24h, renews at 23h)
 EasyAzureIoT iot(
   "ssid", "pass", "hub.azure-devices.net", "device", "key",
   1440,  // token_duration_mins
@@ -72,20 +72,20 @@ EasyAzureIoT iot(
 );
 ```
 
-## Lo que hace automáticamente
+## What it does automatically
 
-- Conecta y reconecta WiFi
-- Sincroniza hora con NTP (Los Ángeles, UTC-8/UTC-7 DST)
-- Genera el SAS token con mbedTLS — sin scripts externos
-- Renueva el token antes de que venza
-- Reconecta MQTT con backoff exponencial
-- Agrega `device` y `ts` a cada mensaje
+- Connects and reconnects WiFi
+- Syncs time with NTP (Los Angeles, UTC-8/UTC-7 DST)
+- Generates the SAS token with mbedTLS — no external scripts
+- Renews the token before it expires
+- Reconnects MQTT with exponential backoff
+- Appends `device` and `ts` to every message
 
-## Compatibilidad
+## Compatibility
 
-- ESP32 (todos los modelos incluyendo C6)
-- Azure IoT Hub (todas las regiones)
-- Certificado: DigiCert Global Root G2 (vence 2038)
+- ESP32 (all models including C6)
+- Azure IoT Hub (all regions)
+- Certificate: DigiCert Global Root G2 (expires 2038)
 
-## Licencia
+## License
 MIT
