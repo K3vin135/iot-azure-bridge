@@ -1,4 +1,4 @@
-# HavatecIoT
+# EasyAzureIoT
 
 Librería Arduino para conectar ESP32 a **Azure IoT Hub** de forma simple.  
 Encapsula WiFi, NTP, SAS token auto-renovable y MQTT en una sola clase.
@@ -6,7 +6,7 @@ Encapsula WiFi, NTP, SAS token auto-renovable y MQTT en una sola clase.
 ## Instalación
 
 ### Opción A — Arduino Library Manager (recomendado)
-Sketch → Include Library → Manage Libraries → buscar **HavatecIoT**
+Sketch → Include Library → Manage Libraries → buscar **EasyAzureIoT**
 
 ### Opción B — Manual
 Sketch → Include Library → Add .ZIP Library → seleccionar el zip descargado
@@ -20,9 +20,9 @@ Instalar desde Manage Libraries:
 ## Uso básico
 
 ```cpp
-#include <HavatecIoT.h>
+#include <EasyAzureIoT.h>
 
-HavatecIoT iot(
+EasyAzureIoT iot(
   "WIFI_SSID",
   "WIFI_PASSWORD",
   "tu-hub.azure-devices.net",
@@ -65,7 +65,7 @@ iot.publish(Payload()
 
 ```cpp
 // Token personalizado (por defecto 24h, renueva a las 23h)
-HavatecIoT iot(
+EasyAzureIoT iot(
   "ssid", "pass", "hub.azure-devices.net", "device", "key",
   1440,  // token_duration_mins
   1380   // token_refresh_mins
