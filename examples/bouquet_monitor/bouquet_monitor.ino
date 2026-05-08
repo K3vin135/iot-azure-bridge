@@ -1,6 +1,6 @@
-#include <HavatecIoT.h>
+#include <EasyAzureIoT.h>
 
-HavatecIoT iot(
+EasyAzureIoT iot(
   "SSID",
   "SSID_PASSWORD",
   "xxx.azure-devices.net",
